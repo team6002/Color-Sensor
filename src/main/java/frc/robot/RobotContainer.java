@@ -10,10 +10,12 @@ import edu.wpi.first.wpilibj.XboxController.Button;
 import frc.robot.Constants.DriveConstants;
 import frc.robot.Constants.OIConstants;
 import frc.robot.commands.CMD_detectedColor;
+import frc.robot.commands.CMD_navxDetectedColor;
 import frc.robot.commands.TurnToAngle;
 import frc.robot.commands.TurnToAngleProfiled;
 import frc.robot.subsystems.DriveSubsystem;
 import frc.robot.subsystems.SUB_colorSensor;
+import frc.robot.subsystems.SUB_navxColorSensor;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.PIDCommand;
@@ -30,6 +32,7 @@ public class RobotContainer {
   // The robot's subsystems
   private final DriveSubsystem m_robotDrive = new DriveSubsystem();
   public final SUB_colorSensor m_ColorSensor = new SUB_colorSensor();
+  public final SUB_navxColorSensor m_navxColorSensor = new SUB_navxColorSensor();
 
   // The driver's controller
   XboxController m_driverController = new XboxController(OIConstants.kDriverControllerPort);
@@ -88,8 +91,10 @@ public class RobotContainer {
     new JoystickButton(m_driverController, Button.kY.value)
         .whenPressed(new TurnToAngleProfiled(-90, m_robotDrive).withTimeout(5));
 
-    // new JoystickButton(m_driverController, XboxController.Button.kA.value)
-    //     .whenPressed(new CMD_detectedColor(m_ColorSensor));
+    new JoystickButton(m_driverController, XboxController.Button.kA.value)
+        .whenPressed(new CMD_detectedColor(m_ColorSensor));
+    // new JoystickButton(m_driverController, XboxController.Button.kB.value)
+    //     .whenHeld(new CMD_navxDetectedColor(m_navxColorSensor));
   }
 
   /**
